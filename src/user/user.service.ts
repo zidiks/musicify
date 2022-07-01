@@ -5,17 +5,21 @@ import { GetJwtArgs } from "./dto/args/get-jwt-args.dto";
 import { MicroserviceService } from "../utils/microservice/microservice.service";
 import { MICROSERVICES } from "../common/paths.model";
 import { Jwt } from "./models/jwt.model";
+import { User } from "./models/user.model";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class UserService {
     constructor(private microservice: MicroserviceService) {
     }
 
-    async createUser(createUserData: CreateUserInput) {};
+    createUser(createUserData: CreateUserInput): Observable<User> {
+        return this.microservice.post<User, CreateUserInput>(MICROSERVICES.USERS, 'register', createUserData);
+    };
 
-    async getUser(getUserArgs: GetUserArgs) {};
+    getUser(getUserArgs: GetUserArgs) {};
 
-    async getJwt(getJwtArgs: GetJwtArgs) {
-        return this.microservice.post<Jwt>(MICROSERVICES.USERS, 'login', getJwtArgs);
+    getJwt(getJwtArgs: GetJwtArgs): Observable<Jwt> {
+        return this.microservice.post<Jwt, GetJwtArgs>(MICROSERVICES.USERS, 'login', getJwtArgs);
     };
 }

@@ -5,4 +5,13 @@ import { AbstractModel } from "../../common/abstract.model";
 export class User extends AbstractModel {
     @Field()
     readonly email: string;
+
+    @Field()
+    readonly firstName: string;
+
+    @Field()
+    readonly lastName: string;
+
+    @Field()
+    readonly password: string;
 }

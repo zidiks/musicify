@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from "@nestjs/config";
 import { HttpService } from "@nestjs/axios";
 import { MICROSERVICES } from "../../common/paths.model";
-import { map, Observable } from "rxjs";
-import { AxiosResponse } from "axios";
+import { catchError, map, Observable } from "rxjs";
 
 @Injectable()
 export class MicroserviceService {
@@ -17,18 +16,38 @@ export class MicroserviceService {
     }
 
     public get<T>(service: MICROSERVICES, path: string): Observable<T> {
-        return this.httpService.get<T>(`${this.getMicroservice(service)}/${path}`).pipe(map(res => res.data));
+        return this.httpService.get<T>(`${this.getMicroservice(service)}/${path}`).pipe(
+            map(res => res.data),
+            catchError(e => {
+                throw new HttpException(e.response.data, e.response.status);
+            })
+        );
     }
 
     public delete<T>(service: MICROSERVICES, path: string): Observable<T> {
-        return this.httpService.delete<T>(`${this.getMicroservice(service)}/${path}`).pipe(map(res => res.data));
+        return this.httpService.delete<T>(`${this.getMicroservice(service)}/${path}`).pipe(
+            map(res => res.data),
+            catchError(e => {
+                throw new HttpException(e.response.data, e.response.status);
+            })
+        );
     }
 
-    public post<T>(service: MICROSERVICES, path: string, data: any): Observable<T> {
-        return this.httpService.post<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(map(res => res.data));
+    public post<T, D>(service: MICROSERVICES, path: string, data: D): Observable<T> {
+        return this.httpService.post<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(
+            map(res => res.data),
+            catchError(e => {
+                throw new HttpException(e.response.data, e.response.status);
+            })
+        );
     }
 
-    public put<T>(service: MICROSERVICES, path: string, data: any): Observable<T> {
-        return this.httpService.put<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(map(res => res.data));
+    public put<T, D>(service: MICROSERVICES, path: string, data: D): Observable<T> {
+        return this.httpService.put<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(
+            map(res => res.data),
+            catchError(e => {
+                throw new HttpException(e.response.data, e.response.status);
+            })
+        );
     }
 }
