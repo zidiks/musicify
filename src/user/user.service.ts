@@ -17,7 +17,9 @@ export class UserService {
         return this.microservice.post<User, CreateUserInput>(MICROSERVICES.USERS, 'register', createUserData);
     };
 
-    getUser(getUserArgs: GetUserArgs) {};
+    getUser(getUserArgs: GetUserArgs): Observable<User> {
+        return this.microservice.get<User>(MICROSERVICES.USERS, `${getUserArgs._id}`);
+    };
 
     getJwt(getJwtArgs: GetJwtArgs): Observable<Jwt> {
         return this.microservice.post<Jwt, GetJwtArgs>(MICROSERVICES.USERS, 'login', getJwtArgs);

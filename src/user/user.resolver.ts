@@ -10,7 +10,7 @@ import { GetJwtArgs } from "./dto/args/get-jwt-args.dto";
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
 
-    @Mutation(() => User)
+    @Mutation(() => User, { name: 'register' })
     async createUser(@Args('createUserData') createUserData: CreateUserInput) {
         return this.userService.createUser(createUserData);
     }
