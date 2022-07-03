@@ -15,8 +15,19 @@ export class MicroserviceService {
         return this.configService.get<string>(service);
     }
 
-    public get<T>(service: MICROSERVICES, path: string): Observable<T> {
-        return this.httpService.get<T>(`${this.getMicroservice(service)}/${path}`).pipe(
+    private generateHeaders(token: string | undefined): Record<string, string> {
+        const headers = {};
+        if (token?.length) {
+            headers['Authorization'] = token;
+        }
+        return headers;
+    }
+
+    public get<T>(service: MICROSERVICES, path: string, token?: string): Observable<T> {
+        return this.httpService.get<T>(
+            `${this.getMicroservice(service)}/${path}`,
+            { headers: this.generateHeaders(token) },
+        ).pipe(
             map(res => res.data),
             catchError(e => {
                 throw new HttpException(e.response.data, e.response.status);
@@ -24,8 +35,11 @@ export class MicroserviceService {
         );
     }
 
-    public delete<T>(service: MICROSERVICES, path: string): Observable<T> {
-        return this.httpService.delete<T>(`${this.getMicroservice(service)}/${path}`).pipe(
+    public delete<T>(service: MICROSERVICES, path: string, token?: string): Observable<T> {
+        return this.httpService.delete<T>(
+            `${this.getMicroservice(service)}/${path}`,
+            { headers: this.generateHeaders(token) },
+        ).pipe(
             map(res => res.data),
             catchError(e => {
                 throw new HttpException(e.response.data, e.response.status);
@@ -33,8 +47,12 @@ export class MicroserviceService {
         );
     }
 
-    public post<T, D>(service: MICROSERVICES, path: string, data: D): Observable<T> {
-        return this.httpService.post<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(
+    public post<T, D>(service: MICROSERVICES, path: string, data: D, token?: string): Observable<T> {
+        return this.httpService.post<T>(
+            `${this.getMicroservice(service)}/${path}`,
+            data,
+            { headers: this.generateHeaders(token) },
+        ).pipe(
             map(res => res.data),
             catchError(e => {
                 throw new HttpException(e.response.data, e.response.status);
@@ -42,8 +60,12 @@ export class MicroserviceService {
         );
     }
 
-    public put<T, D>(service: MICROSERVICES, path: string, data: D): Observable<T> {
-        return this.httpService.put<T>(`${this.getMicroservice(service)}/${path}`, data).pipe(
+    public put<T, D>(service: MICROSERVICES, path: string, data: D, token?: string): Observable<T> {
+        return this.httpService.put<T>(
+            `${this.getMicroservice(service)}/${path}`,
+            data,
+            { headers: this.generateHeaders(token) },
+        ).pipe(
             map(res => res.data),
             catchError(e => {
                 throw new HttpException(e.response.data, e.response.status);

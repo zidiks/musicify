@@ -10,18 +10,17 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class UserService {
-    constructor(private microservice: MicroserviceService) {
-    }
+    constructor(private microservice: MicroserviceService) {}
 
-    createUser(createUserData: CreateUserInput): Observable<User> {
+    public createUser(createUserData: CreateUserInput): Observable<User> {
         return this.microservice.post<User, CreateUserInput>(MICROSERVICES.USERS, 'register', createUserData);
     };
 
-    getUser(getUserArgs: GetUserArgs): Observable<User> {
+    public getUser(getUserArgs: GetUserArgs): Observable<User> {
         return this.microservice.get<User>(MICROSERVICES.USERS, `${getUserArgs._id}`);
     };
 
-    getJwt(getJwtArgs: GetJwtArgs): Observable<Jwt> {
+    public getJwt(getJwtArgs: GetJwtArgs): Observable<Jwt> {
         return this.microservice.post<Jwt, GetJwtArgs>(MICROSERVICES.USERS, 'login', getJwtArgs);
     };
 }
