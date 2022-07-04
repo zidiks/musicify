@@ -17,8 +17,8 @@ export class TrackService {
         return this.microservice.get<PaginatedResponse<TrackResponse>>(MICROSERVICES.TRACKS, '');
     }
 
-    public deleteTrack(token: string): Observable<Track> {
-        return this.microservice.delete<Track>(MICROSERVICES.TRACKS, token);
+    public deleteTrack(id: string, token: string): Observable<TrackResponse> {
+        return this.microservice.delete<TrackResponse>(MICROSERVICES.TRACKS, `${id}`, token);
     }
 
     public updateTrack(updateTrackData: UpdateTrackInput, id: string, token: string): Observable<Track> {

@@ -3,7 +3,7 @@ import { Field, InputType } from "@nestjs/graphql";
 @InputType()
 export class UpdateTrackInput {
     @Field()
-    _id: string;
+    id: string;
 
     @Field()
     readonly title: string;
