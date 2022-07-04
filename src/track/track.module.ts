@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserResolver } from './user.resolver';
-import { UserService } from './user.service';
+import { TrackResolver } from './track.resolver';
+import { TrackService } from './track.service';
 import { DependencyServiceModule } from "../utils/dependency-service-module/dependency-service-module";
 
 @Module({
@@ -8,8 +8,8 @@ import { DependencyServiceModule } from "../utils/dependency-service-module/depe
       DependencyServiceModule
   ],
   providers: [
-      UserResolver,
-      UserService,
+      TrackResolver,
+      TrackService,
   ]
 })
-export class UserModule {}
+export class TrackModule {}

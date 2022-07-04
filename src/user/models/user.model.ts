@@ -6,12 +6,12 @@ export class User extends AbstractModel {
     @Field()
     readonly email: string;
 
-    @Field()
+    @Field({ nullable: true })
     readonly firstName: string;
 
-    @Field()
+    @Field({ nullable: true })
     readonly lastName: string;
 
-    @Field()
+    @Field({ nullable: true })
     readonly password: string;
 }
