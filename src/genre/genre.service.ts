@@ -9,13 +9,14 @@ import { UpdateGenreInput } from "./dto/input/update-genre-input.dto";
 import { CreateGenreInput } from "./dto/input/create-genre-input.dto";
 import { GetGenreArgs } from "./dto/args/get-genre-args.dto";
 import { DeleteResponse } from "../common/delete-response.model";
+import { QueryArgs } from "../common/query-args.dto";
 
 @Injectable()
 export class GenreService {
     constructor(private microservice: MicroserviceService) {}
 
-    public getAllGenres(): Observable<PaginatedResponse<GenreResponse>> {
-        return this.microservice.get<PaginatedResponse<GenreResponse>>(MICROSERVICES.GENRES, '');
+    public getAllGenres(getAllGenresArgs: QueryArgs): Observable<PaginatedResponse<GenreResponse>> {
+        return this.microservice.get<PaginatedResponse<GenreResponse>>(MICROSERVICES.GENRES, '', getAllGenresArgs);
     }
 
     public deleteGenre(deleteGenreArgs: DeleteGenreArgs, token: string): Observable<DeleteResponse> {

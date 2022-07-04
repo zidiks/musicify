@@ -8,6 +8,7 @@ import { DeleteResponse } from "../common/delete-response.model";
 import { UpdateGenreInput } from "./dto/input/update-genre-input.dto";
 import { GetGenreArgs } from "./dto/args/get-genre-args.dto";
 import { GenreResponse } from "./models/genre-response.model";
+import { QueryArgs } from "../common/query-args.dto";
 
 @Resolver(() => Genre)
 export class GenreResolver {
@@ -34,8 +35,8 @@ export class GenreResolver {
     }
 
     @Query(() => PaginatedGenres, { name: 'genres' })
-    async getAllGenres() {
-        return this.genreService.getAllGenres();
+    async getAllGenres(@Args()  getAllGenresArgs: QueryArgs) {
+        return this.genreService.getAllGenres(getAllGenresArgs);
     }
 
     @ResolveField('id', () => String)

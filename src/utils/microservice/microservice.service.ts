@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { HttpService } from "@nestjs/axios";
 import { MICROSERVICES } from "../../common/paths.model";
 import { catchError, map, Observable } from "rxjs";
+import { QueryArgs } from "../../common/query-args.dto";
 
 @Injectable()
 export class MicroserviceService {
@@ -23,10 +24,17 @@ export class MicroserviceService {
         return headers;
     }
 
-    public get<T>(service: MICROSERVICES, path: string, token?: string): Observable<T> {
+    public get<T>(service: MICROSERVICES, path: string, params?: QueryArgs, token?: string): Observable<T> {
         return this.httpService.get<T>(
             `${this.getMicroservice(service)}/${path}`,
-            { headers: this.generateHeaders(token) },
+            {
+                headers: this.generateHeaders(token),
+                params: {
+                    limit: params?.limit,
+                    offset: params?.offset,
+                    _id: params?.ids,
+                }
+            },
         ).pipe(
             map(res => res.data),
             catchError(e => {
