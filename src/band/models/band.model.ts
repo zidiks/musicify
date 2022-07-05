@@ -24,6 +24,6 @@ export class Band extends AbstractModel {
 
 @ObjectType()
 export class PaginatedBands extends PaginatedResponse<Band> {
-    @Field(() => [Band], { nullable: 'itemsAndList' })
+    @Field(() => [Band], { nullable: 'items' })
     readonly items: Band[];
 }

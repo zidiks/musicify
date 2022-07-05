@@ -5,15 +5,24 @@ export class UpdateTrackInput {
     @Field()
     id: string;
 
-    @Field()
-    readonly title: string;
+    @Field({ nullable: true })
+    readonly title?: string;
 
-    @Field()
-    readonly albumId: string;
+    @Field({ nullable: true })
+    readonly albumId?: string;
 
-    @Field()
-    readonly bandsIds: string[];
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly artistsIds?: string[]
 
-    @Field()
-    readonly genresIds: string[];
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly bandsIds?: string[];
+
+    @Field({ nullable: true })
+    readonly duration?: number;
+
+    @Field({ nullable: true })
+    readonly released?: number;
+
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly genresIds?: string[];
 }

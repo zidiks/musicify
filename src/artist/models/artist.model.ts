@@ -32,6 +32,6 @@ export class Artist extends AbstractModel {
 
 @ObjectType()
 export class PaginatedArtists extends PaginatedResponse<Artist> {
-    @Field(() => [Artist], { nullable: 'itemsAndList' })
+    @Field(() => [Artist], { nullable: 'items' })
     readonly items: Artist[];
 }

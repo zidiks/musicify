@@ -1,22 +1,25 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { Field, InputType, Int } from "@nestjs/graphql";
 
 @InputType()
 export class CreateTrackInput {
-    @Field()
-    readonly title: string;
+    @Field({ nullable: true })
+    readonly title?: string;
 
-    @Field()
-    readonly albumId: string;
+    @Field({ nullable: true })
+    readonly albumId?: string;
 
-    @Field()
-    readonly bandsIds: string[];
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly artistsIds?: string[]
 
-    @Field()
-    readonly duration: number;
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly bandsIds?: string[];
 
-    @Field()
-    readonly released: number;
+    @Field(() => Int, { nullable: true })
+    readonly duration?: number;
 
-    @Field()
-    readonly genresIds: string[];
+    @Field(() => Int,{ nullable: true })
+    readonly released?: number;
+
+    @Field(() => [String], { nullable: 'itemsAndList' })
+    readonly genresIds?: string[];
 }

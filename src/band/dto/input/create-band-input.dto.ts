@@ -11,6 +11,6 @@ export class CreateBandInput {
     @Field({ nullable: true })
     readonly website: string;
 
-    @Field(() => [String], { nullable: true })
+    @Field(() => [String], { nullable: 'itemsAndList' })
     readonly genresIds: string[];
 }
