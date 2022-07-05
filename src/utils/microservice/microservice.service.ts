@@ -24,16 +24,18 @@ export class MicroserviceService {
         return headers;
     }
 
-    public get<T>(service: MICROSERVICES, path: string, params?: QueryArgs, token?: string): Observable<T> {
+    public get<T>(service: MICROSERVICES, path: string, params?: Record<string, any>, token?: string): Observable<T> {
+        if (params) {
+            if (params.ids) {
+                params['_id'] = params.ids;
+                delete params.ids;
+            }
+        }
         return this.httpService.get<T>(
             `${this.getMicroservice(service)}/${path}`,
             {
                 headers: this.generateHeaders(token),
-                params: {
-                    limit: params?.limit,
-                    offset: params?.offset,
-                    _id: params?.ids,
-                }
+                params: { ...params }
             },
         ).pipe(
             map(res => res.data),
