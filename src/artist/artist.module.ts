@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ArtistService } from './artist.service';
 import { ArtistResolver } from './artist.resolver';
+import { DependencyServiceModule } from "../utils/dependency-service-module/dependency-service-module";
 
 @Module({
-  providers: [ArtistService, ArtistResolver]
+  imports: [
+      DependencyServiceModule,
+  ],
+  providers: [
+      ArtistResolver,
+  ]
 })
 export class ArtistModule {}

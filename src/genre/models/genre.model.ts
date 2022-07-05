@@ -19,6 +19,6 @@ export class Genre extends AbstractModel {
 
 @ObjectType()
 export class PaginatedGenres extends PaginatedResponse<Genre> {
-    @Field(() => [Genre])
+    @Field(() => [Genre], { nullable: 'itemsAndList' })
     readonly items: Genre[];
 }

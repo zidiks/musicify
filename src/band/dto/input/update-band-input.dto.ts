@@ -3,7 +3,7 @@ import { Field, InputType } from "@nestjs/graphql";
 @InputType()
 export class UpdateBandInput {
     @Field()
-    id?: string;
+    id: string;
 
     @Field({ nullable: true })
     readonly name: string;

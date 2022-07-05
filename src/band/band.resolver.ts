@@ -52,7 +52,7 @@ export class BandResolver {
         return band._id;
     }
 
-    @ResolveField('genres', () => [Genre])
+    @ResolveField('genres', () => [Genre], { nullable: 'itemsAndList' })
     genres(@Parent() band: BandResponse) {
         if (band.genresIds?.length) {
             return  this.genreService.getAllGenres({
