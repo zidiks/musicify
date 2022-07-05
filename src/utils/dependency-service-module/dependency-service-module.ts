@@ -4,8 +4,6 @@ import { HttpModule } from "@nestjs/axios";
 import { ConfigModule } from "@nestjs/config";
 import { GenreService } from "../../genre/genre.service";
 import { BandService } from "../../band/band.service";
-import { BandResolver } from "../../band/band.resolver";
-import { GenreResolver } from "../../genre/genre.resolver";
 
 @Module({
     imports: [
@@ -15,16 +13,12 @@ import { GenreResolver } from "../../genre/genre.resolver";
     providers: [
         MicroserviceService,
         GenreService,
-        GenreResolver,
         BandService,
-        BandResolver,
     ],
     exports: [
         MicroserviceService,
         GenreService,
-        GenreResolver,
         BandService,
-        BandResolver,
     ]
 })
 export class DependencyServiceModule {}
