@@ -4,22 +4,22 @@ import { Observable } from "rxjs";
 import { PaginatedResponse } from "../common/paginated-reponse.model";
 import { GenreResponse } from "./models/genre-response.model";
 import { MICROSERVICES } from "../common/paths.model";
-import { DeleteGenreArgs } from "./dto/args/delete-genre-args.dto";
 import { UpdateGenreInput } from "./dto/input/update-genre-input.dto";
 import { CreateGenreInput } from "./dto/input/create-genre-input.dto";
-import { GetGenreArgs } from "./dto/args/get-genre-args.dto";
 import { DeleteResponse } from "../common/delete-response.model";
-import { QueryArgs } from "../common/query-args.dto";
+import { GetAllGenresArgs } from "./dto/args/get-all-genres-args.dto";
+import { DeleteArgs } from "../common/delete-args.dto";
+import { GetByIdArgs } from "../common/get-by-id-args.dto";
 
 @Injectable()
 export class GenreService {
     constructor(private microservice: MicroserviceService) {}
 
-    public getAllGenres(getAllGenresArgs: QueryArgs): Observable<PaginatedResponse<GenreResponse>> {
+    public getAllGenres(getAllGenresArgs: GetAllGenresArgs): Observable<PaginatedResponse<GenreResponse>> {
         return this.microservice.get<PaginatedResponse<GenreResponse>>(MICROSERVICES.GENRES, '', getAllGenresArgs);
     }
 
-    public deleteGenre(deleteGenreArgs: DeleteGenreArgs, token: string): Observable<DeleteResponse> {
+    public deleteGenre(deleteGenreArgs: DeleteArgs, token: string): Observable<DeleteResponse> {
         return this.microservice.delete<DeleteResponse>(MICROSERVICES.GENRES, `${deleteGenreArgs.id}`, token);
     }
 
@@ -31,7 +31,7 @@ export class GenreService {
         return this.microservice.post<GenreResponse, CreateGenreInput>(MICROSERVICES.GENRES, '', createGenreInput, token);
     }
 
-    public getGenre(getGenreArgs: GetGenreArgs): Observable<GenreResponse> {
+    public getGenre(getGenreArgs: GetByIdArgs): Observable<GenreResponse> {
         return this.microservice.get<GenreResponse>(MICROSERVICES.GENRES, `${getGenreArgs.id}`);
     }
 }

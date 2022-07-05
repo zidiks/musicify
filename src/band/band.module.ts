@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { BandService } from './band.service';
-import { BandResolver } from './band.resolver';
+import { DependencyServiceModule } from "../utils/dependency-service-module/dependency-service-module";
 
 @Module({
-  providers: [BandService, BandResolver]
+  imports: [
+      DependencyServiceModule,
+  ],
 })
 export class BandModule {}

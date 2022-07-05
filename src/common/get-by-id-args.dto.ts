@@ -1,7 +1,7 @@
 import { ArgsType, Field } from "@nestjs/graphql";
 
 @ArgsType()
-export class DeleteGenreArgs {
+export class GetByIdArgs {
     @Field()
     id: string;
 }

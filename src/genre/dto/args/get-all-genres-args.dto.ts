@@ -6,9 +6,9 @@ import { QueryArgs } from "../../../common/query-args.dto";
 export class GetAllGenresArgs extends QueryArgs {
     @IsOptional()
     @Field({ nullable: true })
-    readonly country: string;
+    readonly country?: string;
 
     @IsOptional()
     @Field(() => Int, { nullable: true })
-    readonly year: number;
+    readonly year?: number;
 }

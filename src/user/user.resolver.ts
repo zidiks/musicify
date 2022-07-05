@@ -1,4 +1,4 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { User } from "./models/user.model";
 import { UserService } from "./user.service";
 import { CreateUserInput } from "./dto/input/create-user-input.dto";
@@ -26,7 +26,7 @@ export class UserResolver {
         return this.userService.getJwt(getJwtArgs);
     }
 
-    @ResolveField('id', () => String)
+    @ResolveField('id', () => ID)
     getId(@Parent() user: UserResponse) {
         return user._id;
     }
