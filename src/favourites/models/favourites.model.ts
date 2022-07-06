@@ -7,18 +7,18 @@ import { Track } from "../../track/models/track.model";
 
 @ObjectType()
 export class Favourites extends AbstractModel {
-    @Field(() => ID)
+    @Field(() => ID, { nullable: true })
     readonly userId: string;
 
-    @Field()
+    @Field(() => [Band], { nullable: 'itemsAndList' })
     readonly bands: Band[];
 
-    @Field()
+    @Field(() => [Genre], { nullable: 'itemsAndList' })
     readonly genres: Genre[];
 
-    @Field()
+    @Field(() => [Artist], { nullable: 'itemsAndList' })
     readonly artists: Artist[];
 
-    @Field()
+    @Field(() => [Track], { nullable: 'itemsAndList' })
     readonly tracks: Track[];
 }
