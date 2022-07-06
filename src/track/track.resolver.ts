@@ -20,6 +20,8 @@ import { Band } from "../band/models/band.model";
 import { BandResponse } from "../band/models/band-response.model";
 import { Genre } from "../genre/models/genre.model";
 import { GenreResponse } from "../genre/models/genre-response.model";
+import { Album } from "../album/models/album.model";
+import { AlbumService } from "../album/album.service";
 
 @Resolver(() => Track)
 export class TrackResolver {
@@ -28,6 +30,7 @@ export class TrackResolver {
         private readonly bandService: BandService,
         private readonly artistService: ArtistService,
         private readonly genreService: GenreService,
+        private readonly albumService: AlbumService,
     ) {}
 
     @Mutation(() => Track, { name: 'createTrack' })
@@ -90,6 +93,17 @@ export class TrackResolver {
             }).pipe(map((res: PaginatedResponse<GenreResponse>) => res.items));
         } else {
             return [];
+        }
+    }
+
+    @ResolveField('album', () => Album, { nullable: true })
+    album(@Parent() track: TrackResponse) {
+        if (track.albumId) {
+            return  this.albumService.getAlbum({
+                id: track.albumId
+            });
+        } else {
+            return null;
         }
     }
 }

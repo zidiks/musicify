@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AlbumService } from './album.service';
 import { AlbumResolver } from './album.resolver';
+import { DependencyServiceModule } from "../utils/dependency-service-module/dependency-service-module";
 
 @Module({
-  providers: [AlbumService, AlbumResolver]
+  imports: [
+      DependencyServiceModule,
+  ],
+  providers: [
+      AlbumResolver,
+  ]
 })
 export class AlbumModule {}

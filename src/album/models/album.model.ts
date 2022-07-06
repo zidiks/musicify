@@ -4,27 +4,34 @@ import { Artist } from "../../artist/models/artist.model";
 import { Band } from "../../band/models/band.model";
 import { Track } from "../../track/models/track.model";
 import { Genre } from "../../genre/models/genre.model";
+import { PaginatedResponse } from "../../common/paginated-reponse.model";
 
 @ObjectType()
 export class Album extends AbstractModel {
-    @Field()
+    @Field({ nullable: true })
     readonly name: string;
 
-    @Field(() => Int)
+    @Field(() => Int, { nullable: true })
     readonly released: number;
 
-    @Field(() => [Artist])
+    @Field(() => [Artist], { nullable: 'itemsAndList' })
     readonly artists: Artist[];
 
-    @Field(() => [Band])
+    @Field(() => [Band], { nullable: 'itemsAndList' })
     readonly bands: Band[];
 
-    @Field(() => [Track])
+    @Field(() => [Track], { nullable: 'itemsAndList' })
     readonly tracks: Track[];
 
-    @Field(() => [Genre])
+    @Field(() => [Genre], { nullable: 'itemsAndList' })
     readonly genres: Genre[];
 
-    @Field()
+    @Field({ nullable: true })
     readonly image: string;
+}
+
+@ObjectType()
+export class PaginatedAlbums extends PaginatedResponse<Album> {
+    @Field(() => [Album], { nullable: 'items' })
+    readonly items: Album[];
 }

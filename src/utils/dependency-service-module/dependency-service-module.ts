@@ -6,6 +6,7 @@ import { GenreService } from "../../genre/genre.service";
 import { BandService } from "../../band/band.service";
 import { ArtistService } from "../../artist/artist.service";
 import { TrackService } from "../../track/track.service";
+import { AlbumService } from "../../album/album.service";
 
 const PROVIDERS: Provider[] = [
     MicroserviceService,
@@ -13,6 +14,7 @@ const PROVIDERS: Provider[] = [
     BandService,
     ArtistService,
     TrackService,
+    AlbumService,
 ];
 
 @Module({

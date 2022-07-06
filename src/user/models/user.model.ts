@@ -3,7 +3,7 @@ import { AbstractModel } from "../../common/abstract.model";
 
 @ObjectType()
 export class User extends AbstractModel {
-    @Field()
+    @Field({ nullable: true })
     readonly email: string;
 
     @Field({ nullable: true })
